@@ -1,0 +1,18 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title text-center mb-4">Card Game Score Calculator</h1>
+  
+        <div class="form-group">
+          <label for="cardList">Enter cards:</label>
+          <input type="text" id="cardList" [(ngModel)]="cardList" class="form-control" required>
+          <button class="btn btn-primary mt-3" (click)="calculateScore()">Calculate Score</button>
+        </div>
+  
+        <div *ngIf="result" class="mt-4">
+          <h2>Result: {{ result.score }}</h2>
+          <p class="text-danger" *ngIf="result.errorMessage">{{ result.errorMessage }}</p>
+        </div>
+      </div>
+    </div>
+</div>
