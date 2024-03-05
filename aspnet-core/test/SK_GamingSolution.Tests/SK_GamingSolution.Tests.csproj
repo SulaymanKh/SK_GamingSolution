@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\SK_GamingSolution.Application.Contracts\SK_GamingSolution.Application.Contracts.csproj" />
-    <ProjectReference Include="..\src\SK_GamingSolution.Application\SK_GamingSolution.Application.csproj" />
+    <ProjectReference Include="..\..\src\SK_GamingSolution.Application.Contracts\SK_GamingSolution.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\SK_GamingSolution.Application\SK_GamingSolution.Application.csproj" />
   </ItemGroup>
 
 </Project>

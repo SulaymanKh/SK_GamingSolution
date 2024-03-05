@@ -34,7 +34,6 @@ export class CardGamePageComponent implements OnInit{
       if (this.result.score > this.currentHighScore)
       {
         this.setNewHighScore();
-        this.getCurrentHighScore();
       }
 
     });
@@ -63,7 +62,9 @@ export class CardGamePageComponent implements OnInit{
 
   setNewHighScore(){
     this.cardGameService.addNewHighScoreByTextAndHighScore(this.highScoreAlert, this.result.score)
-        .subscribe((response) => {});
+        .subscribe((response) => {
+          this.getCurrentHighScore();
+        });
   }
 
   toggleInstructions(){

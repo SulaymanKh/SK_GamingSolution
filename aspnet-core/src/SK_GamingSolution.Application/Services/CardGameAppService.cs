@@ -25,15 +25,22 @@ namespace SK_GamingSolution.Services
         public async Task<CardGameItemDto> GetCurrentHighScore()
         {
             var allItems = await _cardGameItemRepository.GetListAsync();
-
-
             var highestScoreItem = allItems.OrderByDescending(score => score.HighScore).FirstOrDefault();
+
+            if (highestScoreItem != null)
+            {
+                return new CardGameItemDto
+                {
+                    Id = highestScoreItem.Id,
+                    Text = highestScoreItem.Text,
+                    HighScore = highestScoreItem.HighScore,
+                };
+            }   
 
             return new CardGameItemDto
             {
-                Id = highestScoreItem.Id,
-                Text = highestScoreItem.Text,
-                HighScore = highestScoreItem.HighScore,
+                Text = "No entry found",
+                HighScore = 0,
             };
         }
 
