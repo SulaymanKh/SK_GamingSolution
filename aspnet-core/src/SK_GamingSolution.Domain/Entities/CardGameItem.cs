@@ -10,5 +10,6 @@ namespace SK_GamingSolution.Entities
     public class CardGameItem : BasicAggregateRoot<Guid>
     {
         public string Text { get; set; }
+        public int HighScore { get; set; }
     }
 }

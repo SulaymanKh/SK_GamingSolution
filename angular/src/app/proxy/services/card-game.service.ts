@@ -9,6 +9,15 @@ export class CardGameService {
   apiName = 'Default';
   
 
+  addNewHighScoreByTextAndHighScore = (text: string, highScore: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CardGameItemDto>({
+      method: 'POST',
+      url: '/api/app/card-game/new-high-score',
+      params: { text, highScore },
+    },
+    { apiName: this.apiName,...config });
+  
+
   calculateScoreByCards = (cards: CardGame[], config?: Partial<Rest.Config>) =>
     this.restService.request<any, string>({
       method: 'POST',
@@ -27,10 +36,10 @@ export class CardGameService {
     { apiName: this.apiName,...config });
   
 
-  getList = (config?: Partial<Rest.Config>) =>
-    this.restService.request<any, CardGameItemDto[]>({
+  getCurrentHighScore = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, CardGameItemDto>({
       method: 'GET',
-      url: '/api/app/card-game',
+      url: '/api/app/card-game/current-high-score',
     },
     { apiName: this.apiName,...config });
 

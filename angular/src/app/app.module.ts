@@ -17,8 +17,11 @@ import { AbpOAuthModule } from '@abp/ng.oauth';
 import { ThemeLeptonXModule } from '@abp/ng.theme.lepton-x';
 import { SideMenuLayoutModule } from '@abp/ng.theme.lepton-x/layouts';
 import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 @NgModule({
   imports: [
+    MatButtonToggleModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -41,7 +44,7 @@ import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
               AccountLayoutModule.forRoot(),
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER],
+  providers: [APP_ROUTE_PROVIDER, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

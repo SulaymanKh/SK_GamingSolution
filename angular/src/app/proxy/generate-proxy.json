@@ -1563,11 +1563,36 @@
               "name": "ICardGameService",
               "methods": [
                 {
-                  "name": "GetListAsync",
+                  "name": "GetCurrentHighScore",
                   "parametersOnMethod": [],
                   "returnValue": {
-                    "type": "System.Collections.Generic.List<SK_GamingSolution.Models.CardGameItemDto>",
-                    "typeSimple": "[SK_GamingSolution.Models.CardGameItemDto]"
+                    "type": "SK_GamingSolution.Models.CardGameItemDto",
+                    "typeSimple": "SK_GamingSolution.Models.CardGameItemDto"
+                  }
+                },
+                {
+                  "name": "AddNewHighScore",
+                  "parametersOnMethod": [
+                    {
+                      "name": "text",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "highScore",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "SK_GamingSolution.Models.CardGameItemDto",
+                    "typeSimple": "SK_GamingSolution.Models.CardGameItemDto"
                   }
                 },
                 {
@@ -1608,17 +1633,74 @@
             }
           ],
           "actions": {
-            "GetListAsync": {
-              "uniqueName": "GetListAsync",
-              "name": "GetListAsync",
+            "GetCurrentHighScore": {
+              "uniqueName": "GetCurrentHighScore",
+              "name": "GetCurrentHighScore",
               "httpMethod": "GET",
-              "url": "api/app/card-game",
+              "url": "api/app/card-game/current-high-score",
               "supportedVersions": [],
               "parametersOnMethod": [],
               "parameters": [],
               "returnValue": {
-                "type": "System.Collections.Generic.List<SK_GamingSolution.Models.CardGameItemDto>",
-                "typeSimple": "[SK_GamingSolution.Models.CardGameItemDto]"
+                "type": "SK_GamingSolution.Models.CardGameItemDto",
+                "typeSimple": "SK_GamingSolution.Models.CardGameItemDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "SK_GamingSolution.Interfaces.ICardGameService"
+            },
+            "AddNewHighScoreByTextAndHighScore": {
+              "uniqueName": "AddNewHighScoreByTextAndHighScore",
+              "name": "AddNewHighScore",
+              "httpMethod": "POST",
+              "url": "api/app/card-game/new-high-score",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "text",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "highScore",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "text",
+                  "name": "text",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "highScore",
+                  "name": "highScore",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "SK_GamingSolution.Models.CardGameItemDto",
+                "typeSimple": "SK_GamingSolution.Models.CardGameItemDto"
               },
               "allowAnonymous": null,
               "implementFrom": "SK_GamingSolution.Interfaces.ICardGameService"
@@ -8922,6 +9004,18 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HighScore",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

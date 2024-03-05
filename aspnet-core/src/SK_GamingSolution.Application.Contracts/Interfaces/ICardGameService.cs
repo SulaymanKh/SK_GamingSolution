@@ -9,7 +9,8 @@ namespace SK_GamingSolution.Interfaces
 {
     public interface ICardGameService : IApplicationService
     {
-        Task<List<CardGameItemDto>> GetListAsync();
+        Task<CardGameItemDto> GetCurrentHighScore();
+        Task<CardGameItemDto> AddNewHighScore(string text, int highScore);
         Task DeleteAsync(Guid id);
         Task<string> CalculateScore(List<CardGame> cards);
     }

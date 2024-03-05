@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CardGameService } from '@proxy/services';
 import { CardGameItemDto } from '@proxy/models';
 
@@ -7,22 +7,36 @@ import { CardGameItemDto } from '@proxy/models';
   templateUrl: './card-game-page.component.html',
   styleUrl: './card-game-page.component.scss'
 })
-export class CardGamePageComponent {
+export class CardGamePageComponent implements OnInit{
   cardList: string = "";
   result: { score: number, errorMessage?: string} = { score: 0 };
+  currentHighScore = 0;
+  highScoreAlert = "New HighScore!";
+  showInstructions = false;
 
   constructor(
     private cardGameService: CardGameService
   ) {}
 
-  calculateScore(){
+  ngOnInit(): void {
+    this.getCurrentHighScore();
+  }
+
+  async calculateScore(){
     let cardGames = this.formatCards();
 
-    this.cardGameService.calculateScoreByCards(cardGames)
+    await this.cardGameService.calculateScoreByCards(cardGames)
     .subscribe((response) => {
       const parsedResponseData = JSON.parse(response);
       this.result.errorMessage = parsedResponseData.IsError ? parsedResponseData.ErrorMessage : '';
       this.result.score = parsedResponseData.IsError ? 0 : parsedResponseData.Score;
+
+      if (this.result.score > this.currentHighScore)
+      {
+        this.setNewHighScore();
+        this.getCurrentHighScore();
+      }
+
     });
   }
 
@@ -40,4 +54,23 @@ export class CardGamePageComponent {
     return cardGames;
   }
 
+  async getCurrentHighScore(){
+    await this.cardGameService.getCurrentHighScore()
+    .subscribe((response) => { 
+      this.currentHighScore = response.highScore;
+    });
+  }
+
+  setNewHighScore(){
+    this.cardGameService.addNewHighScoreByTextAndHighScore(this.highScoreAlert, this.result.score)
+        .subscribe((response) => {});
+  }
+
+  toggleInstructions(){
+    if (!this.showInstructions){
+      this.showInstructions = true;
+    } else {
+      this.showInstructions = false;
+    }
+  }
 }

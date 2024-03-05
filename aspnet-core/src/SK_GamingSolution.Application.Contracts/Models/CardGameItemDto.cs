@@ -8,5 +8,6 @@ namespace SK_GamingSolution.Models
     {
         public Guid Id { get; set; }
         public string Text { get; set; }
+        public int HighScore { get; set; }
     }
 }

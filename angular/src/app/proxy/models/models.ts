@@ -7,4 +7,5 @@ export interface CardGame {
 export interface CardGameItemDto {
   id?: string;
   text?: string;
+  highScore: number;
 }

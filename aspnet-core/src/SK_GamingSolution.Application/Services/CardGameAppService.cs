@@ -22,15 +22,33 @@ namespace SK_GamingSolution.Services
             _cardGameItemRepository = cardGameItemRepository;
         }
 
-        public async Task<List<CardGameItemDto>> GetListAsync()
+        public async Task<CardGameItemDto> GetCurrentHighScore()
         {
-            var items = await _cardGameItemRepository.GetListAsync();
-            return items
-                .Select(item => new CardGameItemDto
-                {
-                    Id = item.Id,
-                    Text = item.Text
-                }).ToList();
+            var allItems = await _cardGameItemRepository.GetListAsync();
+
+
+            var highestScoreItem = allItems.OrderByDescending(score => score.HighScore).FirstOrDefault();
+
+            return new CardGameItemDto
+            {
+                Id = highestScoreItem.Id,
+                Text = highestScoreItem.Text,
+                HighScore = highestScoreItem.HighScore,
+            };
+        }
+
+        public async Task<CardGameItemDto> AddNewHighScore(string text, int highScore)
+        {
+            var items = await _cardGameItemRepository.InsertAsync(
+                new CardGameItem { Text = text, HighScore = highScore }
+            );
+
+            return new CardGameItemDto
+            {
+                Id = items.Id,
+                Text = items.Text, 
+                HighScore = highScore
+            };
         }
 
         public async Task DeleteAsync(Guid id)
@@ -69,7 +87,7 @@ namespace SK_GamingSolution.Services
     
         }
 
-        private void ValidateCardList(List<CardGame> cards)
+        public void ValidateCardList(List<CardGame> cards)
         {
             if (cards == null || cards.Count == 0)
             {
@@ -91,7 +109,7 @@ namespace SK_GamingSolution.Services
             }
         }
 
-        private int CountJokers(List<CardGame> cards)
+        public int CountJokers(List<CardGame> cards)
         {
             int jokerCount = 0;
 
@@ -111,7 +129,7 @@ namespace SK_GamingSolution.Services
             return jokerCount;
         }
 
-        private int CalculateTotalScore(List<CardGame> cards, int jokerCount)
+        public int CalculateTotalScore(List<CardGame> cards, int jokerCount)
         {
             int totalScore = 0;
 
@@ -129,7 +147,7 @@ namespace SK_GamingSolution.Services
             return ApplyJokerMultiplier(totalScore, jokerCount);
         }
 
-        private int GetCardValue(string value)
+        public int GetCardValue(string value)
         {
             switch (value)
             {
@@ -157,7 +175,7 @@ namespace SK_GamingSolution.Services
             }
         }
 
-        private int GetSuitMultiplier(string suit)
+        public int GetSuitMultiplier(string suit)
         {
             switch (suit)
             {
@@ -174,7 +192,7 @@ namespace SK_GamingSolution.Services
             }
         }
 
-        private int ApplyJokerMultiplier(int totalScore, int jokerCount)
+        public int ApplyJokerMultiplier(int totalScore, int jokerCount)
         {
             for (int i = 0; i < jokerCount; i++)
             {
@@ -183,8 +201,5 @@ namespace SK_GamingSolution.Services
 
             return totalScore;
         }
-
-
-
     }
 }
